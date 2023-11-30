@@ -14,9 +14,6 @@ public class Rdv implements Serializable {
 
     private String title;
 
-    //    @Column(length = 80)
-//    private String duration;
-
     private Long duration;
 
     private Prof prof;
