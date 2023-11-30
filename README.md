@@ -1,96 +1,45 @@
-##### M2 IL. TAA TP Spring
+##### M2 IL. TAA TP Keycloak
 ##### Shcherbakova Kateryna 
 ##### Tkachenko Oleksii 
 
-# Partie 1. Injection de dépendances
+##### To get client secret
+1. Clients - Client details - myspringbootapp
+2. Client authentication + Service accounts roles
 
-Le projet est une application de gestion de magasin développée en utilisant le framework Spring en Java. L'application simule les interactions entre différents acteurs tels que le client, le magasin, la banque et le fournisseur, en offrant des fonctionnalités pour effectuer des opérations d'achat et de gestion de stock. 
+##### To get token
+1. Required user actions - remove Update Password
+2. In terminal
+```
+curl --location 'http://localhost:8080/realms/myspringbootapprealm/protocol/openid-connect/token' --header 'Content-Type: application/x-www-form-urlencoded' --data-urlencode 'username=myuser' --data-urlencode 'password=3677417' --data-urlencode 'grant_type=password' --data-urlencode 'client_id=myspringbootapp' --data-urlencode 'client_secret=ih7SbP9PLYErKiisHgLstMV2Ztrji0gC' --data-urlencode 'scope=openid'
+```
 
-## Structure du Projet
 
-Le projet est organisé en plusieurs packages :
 
-- `sample.simple`: Package principal contenant la classe principale de l'application.
-- `sample.simple.client`: Contient les classes pour le client et ses interactions avec le magasin.
-- `sample.simple.store`: Contient les fonctionnalités du magasin et ses interfaces pour les achats.
-- `sample.simple.bank`: Contient les fonctionnalités de la banque pour les transactions financières.
-- `sample.simple.provider`: Contient les fonctionnalités du fournisseur pour la gestion des stocks.
 
-## Fonctionnalités Principales
+myuser
+```
+{"access_token":"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICItc1ZXMmpmUmVFUWZua3k2YmRRN1k2WjByQ0pqN0JQOGY5Y3JtNDdmMGxNIn0.eyJleHAiOjE3MDEzMDIxNDQsImlhdCI6MTcwMTMwMTg0NCwianRpIjoiYmRjZTI5Y2QtODZmYi00ZmI1LTkyMTUtNzg1ODYwYTUxZWZiIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9teXNwcmluZ2Jvb3RhcHByZWFsbSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJjYjNlOWQwYS05MzlkLTRlZTAtYjM4OC00NTZmZTRmYjY4ZTEiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJteXNwcmluZ2Jvb3RhcHAiLCJzZXNzaW9uX3N0YXRlIjoiZjI1Y2VlZDUtOTE1ZC00OGFjLTg3YTgtYTdiZGE0ZTk3YTdkIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIvKiJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiIsIlVTRVIiLCJkZWZhdWx0LXJvbGVzLW15c3ByaW5nYm9vdGFwcHJlYWxtIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgZW1haWwgcHJvZmlsZSIsInNpZCI6ImYyNWNlZWQ1LTkxNWQtNDhhYy04N2E4LWE3YmRhNGU5N2E3ZCIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6IkthdGVyeW5hIFNoY2hlcmJha292YSIsInByZWZlcnJlZF91c2VybmFtZSI6Im15dXNlciIsImdpdmVuX25hbWUiOiJLYXRlcnluYSIsImZhbWlseV9uYW1lIjoiU2hjaGVyYmFrb3ZhIn0.m3G0IRspBUvIR1swjqvccJQD0Gt7IQxe3kkbasE9SHiFJxL7enBpj1ppvlA6SXKmZXjRzTbEhuQaykuusfV0dUE43_7_6sQ9wrYWRnA5fBOVeIQLLoLz-8urZhAcqm9FDjWS8DcIA92CSN2jfwSJMQ1VoPFol0k3YHbqEzP2hYocR8MkWCmz8RRs6gn2IgMTaed3cZgE-Y7hWZir-8Lqz0_gTU9az2tofR1WTPMkLzs0LRXvxKj4ti0gI8MBxyRxE5pJdJ5vnJD07l_D0EF4FKUg7dbotXNMJQrEPEHc-SX244ZwlMFZgBLLf08hAa9p_DNkBqPBCXkmS9NRcDeERQ","expires_in":300,"refresh_expires_in":1800,"refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJiOTRkMmM0Zi02ODQ5LTQwYTYtYTQyNC01YmU2NWI5OTNkZGUifQ.eyJleHAiOjE3MDEzMDM2NDQsImlhdCI6MTcwMTMwMTg0NCwianRpIjoiZTUxNzQxNTctNjI1Yi00NGZkLTlhNTUtOWI3OTdiMGFlZjk5IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9teXNwcmluZ2Jvb3RhcHByZWFsbSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9yZWFsbXMvbXlzcHJpbmdib290YXBwcmVhbG0iLCJzdWIiOiJjYjNlOWQwYS05MzlkLTRlZTAtYjM4OC00NTZmZTRmYjY4ZTEiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoibXlzcHJpbmdib290YXBwIiwic2Vzc2lvbl9zdGF0ZSI6ImYyNWNlZWQ1LTkxNWQtNDhhYy04N2E4LWE3YmRhNGU5N2E3ZCIsInNjb3BlIjoib3BlbmlkIGVtYWlsIHByb2ZpbGUiLCJzaWQiOiJmMjVjZWVkNS05MTVkLTQ4YWMtODdhOC1hN2JkYTRlOTdhN2QifQ.ME0kbdKbZRcHzGF8oBXH-rqHGCanrGfi-ZvcAXUNLZc","token_type":"Bearer","id_token":"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICItc1ZXMmpmUmVFUWZua3k2YmRRN1k2WjByQ0pqN0JQOGY5Y3JtNDdmMGxNIn0.eyJleHAiOjE3MDEzMDIxNDQsImlhdCI6MTcwMTMwMTg0NCwiYXV0aF90aW1lIjowLCJqdGkiOiJjZGNlZDE2My0zNWEwLTQ0YjUtODgyYi00ZGU0OGQ4YTJlY2UiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvcmVhbG1zL215c3ByaW5nYm9vdGFwcHJlYWxtIiwiYXVkIjoibXlzcHJpbmdib290YXBwIiwic3ViIjoiY2IzZTlkMGEtOTM5ZC00ZWUwLWIzODgtNDU2ZmU0ZmI2OGUxIiwidHlwIjoiSUQiLCJhenAiOiJteXNwcmluZ2Jvb3RhcHAiLCJzZXNzaW9uX3N0YXRlIjoiZjI1Y2VlZDUtOTE1ZC00OGFjLTg3YTgtYTdiZGE0ZTk3YTdkIiwiYXRfaGFzaCI6Ijhta3otTElUSWR3YkhmM2o3NlRtb1EiLCJhY3IiOiIxIiwic2lkIjoiZjI1Y2VlZDUtOTE1ZC00OGFjLTg3YTgtYTdiZGE0ZTk3YTdkIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiS2F0ZXJ5bmEgU2hjaGVyYmFrb3ZhIiwicHJlZmVycmVkX3VzZXJuYW1lIjoibXl1c2VyIiwiZ2l2ZW5fbmFtZSI6IkthdGVyeW5hIiwiZmFtaWx5X25hbWUiOiJTaGNoZXJiYWtvdmEifQ.eikFsVhZbXg8oJagMUSY8xFRM72ZZu8IFOtRGPugWRwPuAddvWQQ4ZI-F4f9-ziKhPigqlj22kkiGchdN7O3ifOFC5QmLfWOMyJ4VSL_CAauv4AXMbqOqunUNDkjHOb_F0CSdjPylh_SXhPplBDBVL7c29bFX-3iIEyDooi3kSUld7Ky7XDtNMUdoCRQjgbHnSm-VVpce-42HR-iKDv_SbV0lhf2ARum0D7MphCH02RGXukYtuMwNeElacDhcJy4_MTgUUJNCISWeb9bRw99dUU0B1QJJJpwQ_WQOiyKVFxBOMqGfmKsjBAPkZbFA82tJOSVTRVLvD9dcm-vzcD2xA","not-before-policy":0,"session_state":"f25ceed5-915d-48ac-87a8-a7bda4e97a7d","scope":"openid email profile"}
+```
 
-- **Client**: Interagit avec le magasin en effectuant des achats à l'aide des différentes interfaces disponibles (IFastLane, ILane, IJustHaveALook).
-- **Magasin**: Offre des fonctionnalités pour vérifier le stock, commander des articles, gérer les paiements et collaborer avec la banque et le fournisseur.
-- **Banque**: Gère les transferts d'argent entre comptes pour les transactions liées aux achats.
-- **Fournisseur**: Fournit des informations sur les prix des articles et permet de passer des commandes pour réapprovisionner le stock du magasin.
+myuser2
+```
+{"access_token":"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICItc1ZXMmpmUmVFUWZua3k2YmRRN1k2WjByQ0pqN0JQOGY5Y3JtNDdmMGxNIn0.eyJleHAiOjE3MDEzMDIyNjQsImlhdCI6MTcwMTMwMTk2NCwianRpIjoiMzNiZTViNmYtNjVlOC00NGUxLTgxNjktNDBkZTBkYTNlOWJmIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9teXNwcmluZ2Jvb3RhcHByZWFsbSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJkZWU5ZWY4MC1hZTY5LTRkZTMtYTE3Yy0yMzI0Zjg3NGQ5ZTIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJteXNwcmluZ2Jvb3RhcHAiLCJzZXNzaW9uX3N0YXRlIjoiNWJkNTEyNmYtYTJkNy00NDMwLWJhNDYtOGI5NjU3NmIxYjcyIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIvKiJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiIsIkFETUlOIiwiZGVmYXVsdC1yb2xlcy1teXNwcmluZ2Jvb3RhcHByZWFsbSJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIGVtYWlsIHByb2ZpbGUiLCJzaWQiOiI1YmQ1MTI2Zi1hMmQ3LTQ0MzAtYmE0Ni04Yjk2NTc2YjFiNzIiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsIm5hbWUiOiJPbGVrc2lpIFRrYWNoZW5rbyIsInByZWZlcnJlZF91c2VybmFtZSI6Im15dXNlcjIiLCJnaXZlbl9uYW1lIjoiT2xla3NpaSIsImZhbWlseV9uYW1lIjoiVGthY2hlbmtvIn0.TQz21dTqz9_0ICWYg2kU9RFstwz-wl_mXC4MF3hHs7Yaj4bYPgMjCCRNSmRHvwDW8CLilXFPF8Z4OP52KdtjhphchutTQTQwcJr8P94BOGqwnaIdTFQ0Vhk6adBkqyGn8ywpDt8ktuXvhJal8hb6HnM8ge3vX_ncUOiAmG1shC3ZXGFLlIkQ7N86lQKQ8uYqsmp9s0xtcvrfTu5hKcOVSAxYj07B6NZ85VjDGnduMLkVZ7YdbwlvslENXAQ0u6M2rUTShMrhAEQZywbG8aPdBPwQNJOLkG-Sr0Cmf5pg00LZTRAXzB-t_ISDt6PnP1Di1w4ra0JPcJmla779UsIb1A","expires_in":300,"refresh_expires_in":1800,"refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJiOTRkMmM0Zi02ODQ5LTQwYTYtYTQyNC01YmU2NWI5OTNkZGUifQ.eyJleHAiOjE3MDEzMDM3NjQsImlhdCI6MTcwMTMwMTk2NCwianRpIjoiZWRlZTBlMTYtZjRlYy00ZGY4LWJlZTEtMWVhOTA4MzdjYWIxIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9teXNwcmluZ2Jvb3RhcHByZWFsbSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9yZWFsbXMvbXlzcHJpbmdib290YXBwcmVhbG0iLCJzdWIiOiJkZWU5ZWY4MC1hZTY5LTRkZTMtYTE3Yy0yMzI0Zjg3NGQ5ZTIiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoibXlzcHJpbmdib290YXBwIiwic2Vzc2lvbl9zdGF0ZSI6IjViZDUxMjZmLWEyZDctNDQzMC1iYTQ2LThiOTY1NzZiMWI3MiIsInNjb3BlIjoib3BlbmlkIGVtYWlsIHByb2ZpbGUiLCJzaWQiOiI1YmQ1MTI2Zi1hMmQ3LTQ0MzAtYmE0Ni04Yjk2NTc2YjFiNzIifQ.j98Gd7nXGFL6qIpohFWXzp5pQmDVE7aS4q0XzLjQK3w","token_type":"Bearer","id_token":"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICItc1ZXMmpmUmVFUWZua3k2YmRRN1k2WjByQ0pqN0JQOGY5Y3JtNDdmMGxNIn0.eyJleHAiOjE3MDEzMDIyNjQsImlhdCI6MTcwMTMwMTk2NCwiYXV0aF90aW1lIjowLCJqdGkiOiIzZGZlY2M4Ny01ZjFlLTQ4NDUtOTIzNy01ZWIyNDhmNzE5M2QiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvcmVhbG1zL215c3ByaW5nYm9vdGFwcHJlYWxtIiwiYXVkIjoibXlzcHJpbmdib290YXBwIiwic3ViIjoiZGVlOWVmODAtYWU2OS00ZGUzLWExN2MtMjMyNGY4NzRkOWUyIiwidHlwIjoiSUQiLCJhenAiOiJteXNwcmluZ2Jvb3RhcHAiLCJzZXNzaW9uX3N0YXRlIjoiNWJkNTEyNmYtYTJkNy00NDMwLWJhNDYtOGI5NjU3NmIxYjcyIiwiYXRfaGFzaCI6Il9jRHVLZVd0TllLWnp5S1dkNXV4TFEiLCJhY3IiOiIxIiwic2lkIjoiNWJkNTEyNmYtYTJkNy00NDMwLWJhNDYtOGI5NjU3NmIxYjcyIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiT2xla3NpaSBUa2FjaGVua28iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJteXVzZXIyIiwiZ2l2ZW5fbmFtZSI6Ik9sZWtzaWkiLCJmYW1pbHlfbmFtZSI6IlRrYWNoZW5rbyJ9.C1yXjQkV4mguywkjObgCvepjbX6v9wW5u7fxeah3KR_ciwdJcoSjsnrjDMMZd9oPaeTf8cNZRewv5aOnQMawKOVrCDmKA4rhXYQbOTNdsPwIErp0oyaxoZYEUCmxwztCoZN3ehoTmLJY2y0P9MEmrdaMT-Ug2cAbJI7yHfqK7nIweEwtwe39MQ6ZMdxLw9St6mC_1bJMF_CQu0ds_7bIoWehErW1dhPN59Vd3-OcKNotTiEHgSGd0hT6Mgq5Ey2-VYGShP_2r-M8DJfKS2W5eris3uGlZJjBmfQx8tBn268wx20oUn8DbZUEJ2iI0kg1DmDdUwV1i2EiOdfzgH4thg","not-before-policy":0,"session_state":"5bd5126f-a2d7-4430-ba46-8b96576b1b72","scope":"openid email profile"}
+```
 
-## Utilisation
+#### DO NOT STOP THE DOCKER CONTAINER FOR KEYCLOAK
 
-Pour exécuter l'application :
-1. Assurez-vous d'avoir les dépendances nécessaires et Java installé.
-2. Importez le projet dans votre IDE.
-3. Lancez la classe `SampleSimpleApplication` pour démarrer l'application.
+```
+export TOKEN=$(curl --location 'http://localhost:8080/realms/myspringbootapprealm/protocol/openid-connect/token' --header 'Content-Type: application/x-www-form-urlencoded' --data-urlencode 'username=myuser' --data-urlencode 'password=3677417' --data-urlencode 'grant_type=password' --data-urlencode 'client_id=myspringbootapp' --data-urlencode 'client_secret=ih7SbP9PLYErKiisHgLstMV2Ztrji0gC' --data-urlencode 'scope=openid'| jq -r '.access_token')
+```
 
-## Injection de dépendances
 
-L'un des principes clés de la conception de ce projet repose sur l'injection de dépendances, qui est utilisée pour gérer les relations entre les composants. L'utilisation de l'injection de dépendances augmente la modularité, la maintenabilité et la testabilité du code.
 
-Le projet utilise l'injection de dépendances de Spring pour connecter les différentes parties de l'application :
 
-- Les composants tels que le client, le magasin, la banque et le fournisseur sont créés en tant que beans Spring, ce qui permet à Spring de gérer leur cycle de vie et leurs dépendances.
-- L'annotation `@Autowired` est utilisée pour injecter les dépendances entre les différents composants, permettant ainsi à Spring de connecter automatiquement les différentes parties de l'application.
 
----
 
-# Partie 2: Spring AOP
 
-Cette partie du projet se concentre sur l'utilisation de Spring AOP (Aspect-Oriented Programming) pour la gestion de la sécurité et le suivi de l'exécution des méthodes. 
-L'objectif du projet est d'appliquer l'AOP pour deux fonctionnalités clés : la sécurité et le suivi des méthodes.
 
-## Structure des fichiers
-La fonctionnalité AOP a été mise en œuvre dans le projet spring-boot-sample-simple-standalone pour montrer un exemple d'utilisation avec les classes de la partie 1.
-- **AOPExecutionLogger**: Aspect pour le suivi de l'exécution des méthodes dans l'application.
-- **AOPSecurityAspect**: Aspect pour la gestion de la sécurité avec Spring AOP.
-- **SecurityCheck**: Annotation pour marquer les méthodes nécessitant une vérification de sécurité.
+export TOKEN=$(curl --location 'http://localhost:8080/realms/myspringbootapprealm/protocol/openid-connect/token' --header 'Content-Type: application/x-www-form-urlencoded' --data-urlencode 'username=myuser' --data-urlencode 'password=3677417' --data-urlencode 'grant_type=password' --data-urlencode 'client_id=myspringbootapp' --data-urlencode 'client_secret=ih7SbP9PLYErKiisHgLstMV2Ztrji0gC' --data-urlencode 'scope=openid'| jq -r '.access_token')
 
-## Utilisation
-- L'aspect `AOPExecutionLogger` enregistre les appels des méthodes publiques de tous les beans Spring de l'application.
-- L'aspect `AOPSecurityAspect` utilise l'annotation `@SecurityCheck` pour contrôler l'accès aux méthodes sécurisées dans l'application, comme illustré dans la classe `Bank`.
-
----
-
-# Partie 3. Spring-data
-
-Le TP2 a été pris comme base et le framework Spring y a été implémenté. 
-Cette application a été conçue pour gérer les informations relatives aux professeurs et aux étudiants dans un environnement éducatif. Elle offre une API RESTful permettant de récupérer des détails sur les professeurs, les étudiants et les rendez-vous.
-
-## Technologies utilisées
-- Java
-- Spring Framework
-- JPA (Java Persistence API)
-- HSQL
-
-## Utilisation
-1. Exécutez le serveur `run-hsqldb-server.sh`, qui est nécessaire pour la base de données. (En cas de problème, utilisez un serveur avec TAA_TP1.`https://github.com/kate-shcherbakova/taa_tp1`.)
-2. Il est également souhaitable d'utiliser le fichier JpaTest du TP1 pour remplir la base de données avec des valeurs initiales.
-3. Configurer les informations d'identification de la base de données dans le fichier `application.properties`.
-4. Lancer l'application en exécutant la classe principale `RdvApplication.java`.
-
-## Points clés
-- Trois entités principales sont gérées : Professeur, Étudiant et Rendez-vous.
-- Les controllers pour chaque entité sont exposées via des points de terminaison REST pour récupérer des données spécifiques.
-
-## Endpoints
-- **Professeurs** : `/professors`
-    - `GET /professors` : Récupère la liste de tous les professeurs.
-    - `GET /professors/{id}` : Récupère un professeur par son identifiant.
-    - `POST /professors` : Ajoute un nouveau professeur à la base de données.
-
-- **Étudiants** : `/students`
-    - `GET /students` : Récupère la liste de tous les étudiants.
-    - `GET /students/{id}` : Récupère un étudiant par son identifiant.
-
-- **Rendez-vous** : `/rdvs`
-    - `GET /rdvs` : Récupère la liste de tous les rendez-vous.
-    - `GET /rdvs/{id}` : Récupère un rendez-vous par son identifiant.
 
 ---
