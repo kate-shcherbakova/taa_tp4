@@ -52,23 +52,44 @@ Le but de cette partie était d'intégrer Keycloak dans un projet personnel. Ce 
 ### Comment exécuter
 Pour exécuter ce projet :
 1. Assurez-vous d'avoir Java et Maven installés.
-2. Configurez Keycloak avec les utilisateurs et les rôles nécessaires.
+2. Configurez Keycloak avec les utilisateurs et les rôles nécessaires .
 3. Clonez ce dépôt Git.
 4. Configurez les paramètres de connexion à Keycloak dans le projet.
 5. Exécuter le fichier `RdvApplication.java`.
 
 ### Intégration de Keycloak
-J'ai intégré Keycloak dans le projet en suivant les étapes suivantes. 
+Keycloak a été intégré au projet en effectuant les étapes suivantes. 
 1. Configuration du Realm dans Keycloak
-    - Créez un nouveau Realm dans Keycloak via l'interface d'administration.
+    - Créez un nouveau Realm dans Keycloak via l'interface d'administration (`http://localhost:8080/admin/<test>/console/`).
     - Ajoutez les clients, utilisateurs et rôles requis pour votre Realm.
 2. Configuration de Spring Security
-    - Ajoutez les dépendances Keycloak nécessaires à votre projet Spring Boot.
-    - Configurez SecurityConfig pour spécifier les rôles autorisés pour chaque endpoint.
+    - Ajoutez les dépendances Keycloak nécessaires à votre projet Spring Boot. Les URL des serveurs Keycloak ont été ajoutées au fichier `application.properties`. 
+    - Configurez SecurityConfig pour spécifier les rôles autorisés pour chaque endpoint. Ces paramètres ont été mis en œuvre dans le fichier `SecurityConfig.java`.
     - Assurez-vous que Spring Security gère correctement les demandes d'authentification en utilisant les tokens JWT de Keycloak.
 3. Test de l'intégration
     - Démarrez votre application.
-    - Testez l'accès aux différents endpoints en utilisant les utilisateurs configurés dans Keycloak avec les rôles associés.
+    - Testez l'accès aux différents endpoints en utilisant les utilisateurs configurés dans Keycloak avec les rôles associés. 
+    
+### Vérification
+Pour vérifier le bon fonctionnement de Keycloak, un jeton JWT a été obtenu à l'aide de la commande cURL suivante :
+```
+curl --location 'http://localhost:8080/realms/springbootpersonalrealm/protocol/openid-connect/token' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'username=<test>' \
+--data-urlencode 'password=<test>' \
+--data-urlencode 'grant_type=password' \
+--data-urlencode 'client_id=<test>' \
+--data-urlencode 'client_secret=<test>' \
+--data-urlencode 'scope=openid'
+```
+Cela permet d'obtenir un jeton JWT qui peut ensuite être utilisé pour l'authentification et l'autorisation. Ce jeton contient des informations sur l'utilisateur, les rôles et les autorisations.
+
+Le jeton reçu peut être utilisé pour accéder aux ressources protégées de l'application :
+
+```
+curl -i -X GET http://localhost:8081/test-endpoint \
+-H "Authorization: Bearer <TOKEN>"
+``` 
 
 ### Endpoints
 - `/students` : Page pour obtenir tous les étudiants avec le rôle USER et ADMIN
