@@ -31,3 +31,37 @@ export TOKEN=$(curl --location 'http://localhost:8080/realms/myspringbootappreal
 ```
 
 ---
+
+## For `springbootpersonalrealm`
+
+### kate-admin
+```
+curl --location 'http://localhost:8080/realms/springbootpersonalrealm/protocol/openid-connect/token' --header 'Content-Type: application/x-www-form-urlencoded' --data-urlencode 'username=kate-admin' --data-urlencode 'password=3677417' --data-urlencode 'grant_type=password' --data-urlencode 'client_id=springbootpersonal' --data-urlencode 'client_secret=NyC1XGjYSWfJ7sGgqqTkGxYmxRZ1fAmR' --data-urlencode 'scope=openid'
+```
+
+### oleksii-user
+```
+curl --location 'http://localhost:8080/realms/springbootpersonalrealm/protocol/openid-connect/token' --header 'Content-Type: application/x-www-form-urlencoded' --data-urlencode 'username=oleksii-user' --data-urlencode 'password=3677417' --data-urlencode 'grant_type=password' --data-urlencode 'client_id=springbootpersonal' --data-urlencode 'client_secret=NyC1XGjYSWfJ7sGgqqTkGxYmxRZ1fAmR' --data-urlencode 'scope=openid'
+```
+
+USER
+export TOKEN=$(curl --location 'http://localhost:8080/realms/springbootpersonalrealm/protocol/openid-connect/token' --header 'Content-Type: application/x-www-form-urlencoded' --data-urlencode 'username=oleksii-user' --data-urlencode 'password=3677417' --data-urlencode 'grant_type=password' --data-urlencode 'client_id=springbootpersonal' --data-urlencode 'client_secret=NyC1XGjYSWfJ7sGgqqTkGxYmxRZ1fAmR' --data-urlencode 'scope=openid'| jq -r '.access_token')
+
+kate@Stitch:~$ curl -X GET   http://localhost:8081/students   -H "Authorization: Bearer $TOKEN"
+[{"id":1,"name":"Oleksii","group":"345","rdvs":[]}]kate@Stitch:~$ curl -X GET   http://localhost:8081/professors   -H "Authorization: Bearer $TOKEN"
+[{"id":2,"name":"Olivier","department":"ISTIC","rdvs":[]}]kate@Stitch:~$ curl -X GET   http://localhost:8081/rdvs   -H "Authorization: Bearer $TOKEN"
+kate@Stitch:~$ 
+
+ADMIN
+kate@Stitch:~$ export TOKEN=$(curl --location 'http://localhost:8080/realms/springbootpersonalrealm/protocol/openid-connect/token' --header 'Content-Type: application/x-www-form-urlencoded' --data-urlencode 'username=kate-admin' --data-urlencode 'password=3677417' --data-urlencode 'grant_type=password' --data-urlencode 'client_id=springbootpersonal' --data-urlencode 'client_secret=NyC1XGjYSWfJ7sGgqqTkGxYmxRZ1fAmR' --data-urlencode 'scope=openid'| jq -r '.access_token')
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  3595  100  3450  100   145  92572   3890 --:--:-- --:--:-- --:--:-- 97162
+kate@Stitch:~$ curl -X GET   http://localhost:8081/rdvs   -H "Authorization: Bearer $TOKEN"
+[{"id":1,"titlecurl -X GET   http://localhost:8081/professors   -H "Authorization: Bearer $TOKEN"
+kate@Stitch:~$ curl -X GET   http://localhost:8081/students   -H "Authorization: Bearer $TOKEN"
+kate@Stitch:~$ 
+
+
+
+
